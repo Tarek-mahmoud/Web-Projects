@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Posts</title>
+    <link rel="stylesheet" href="posts.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="post-box">
+            <h2>Post something</h2>
+            <form id="post-form">
+                <textarea id="post-content" placeholder="What's on your mind?" required></textarea>
+                <button type="submit" class="btn">Post</button>
+            </form>
+        </div>
+        <div id="posts-container"></div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1Mv14tMLKS3xitgRyQdMntUyx4LoIVNc",
+            authDomain: "se-2-project.firebaseapp.com",
+            projectId: "se-2-project",
+            storageBucket: "se-2-project.appspot.com",
+            messagingSenderId: "1050382587067",
+            appId: "1:1050382587067:web:2107a23be6efae0f00459e"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // HTML elements
+        const postForm = document.getElementById('post-form');
+        const postsContainer = document.getElementById('posts-container');
+
+        // Add post
+        postForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const postContent = document.getElementById('post-content').value;
+            const user = auth.currentUser;
+
+            try {
+                await addDoc(collection(db, 'posts'), {
+                    content: postContent,
+                    createdBy: user.uid,
+                    createdAt: new Date(),
+                    loveCount: 0
+                });
+                document.getElementById('post-content').value = '';
+            } catch (e) {
+                console.error('Error adding post: ', e);
+            }
+        });
+
+        // Load posts
+        async function loadPosts() {
+            onSnapshot(collection(db, 'posts'), (snapshot) => {
+                postsContainer.innerHTML = '';
+                snapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const postElement = document.createElement('div');
+                    postElement.className = 'post';
+                    postElement.innerHTML = `
+                        <p>${post.content}</p>
+                        <button onclick="lovePost('${doc.id}', ${post.loveCount})">Love (${post.loveCount})</button>
+                    `;
+                    postsContainer.appendChild(postElement);
+                });
+            });
+        }
+
+        // Love post
+        window.lovePost = async (postId, currentLoveCount) => {
+            const postRef = doc(db, 'posts', postId);
+            await updateDoc(postRef, {
+                loveCount: currentLoveCount + 1
+            });
+        }
+
+        // Load posts when the page loads
+        loadPosts();
+    </script>
+</body>
+</html>

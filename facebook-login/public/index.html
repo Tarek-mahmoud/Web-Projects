@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="textbox">
+                    <input type="text" id="login-email" placeholder="Email or Username" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+        </div>
+
+        <div class="signup-box">
+            <h2>Sign Up</h2>
+            <form id="signup-form">
+                <div class="textbox">
+                    <input type="text" id="signup-email" placeholder="Email or Username" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+      // Import the functions from SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA1Mv14tMLKS3xitgRyQdMntUyx4LoIVNc",
+        authDomain: "se-2-project.firebaseapp.com",
+        projectId: "se-2-project",
+        storageBucket: "se-2-project.appspot.com",
+        messagingSenderId: "1050382587067",
+        appId: "1:1050382587067:web:2107a23be6efae0f00459e"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // HTML elements
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const showSignupLink = document.getElementById('show-signup');
+      const showLoginLink = document.getElementById('show-login');
+      const loginBox = document.querySelector('.login-box');
+      const signupBox = document.querySelector('.signup-box');
+
+      // Show sign-up form
+      showSignupLink.addEventListener('click', () => {
+          loginBox.style.display = 'none';
+          signupBox.style.display = 'block';
+      });
+
+      // Show login form
+      showLoginLink.addEventListener('click', () => {
+          signupBox.style.display = 'none';
+          loginBox.style.display = 'block';
+      });
+
+      // Sign up
+      signupForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = document.getElementById('signup-email').value;
+          const password = document.getElementById('signup-password').value;
+          
+          createUserWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                  alert('Sign up successful!');
+                  signupBox.style.display = 'none';
+                  loginBox.style.display = 'block';
+              })
+              .catch((error) => {
+                  alert(error.message);
+              });
+      });
+
+      // Login
+      loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = document.getElementById('login-email').value;
+          const password = document.getElementById('login-password').value;
+
+          signInWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                  alert('Login successful!');
+                  window.location.href = 'posts.html';
+              })
+              .catch((error) => {
+                  alert(error.message);
+              });
+      });
+    </script>
+</body>
+</html>
