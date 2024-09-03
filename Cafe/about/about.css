@@ -1,0 +1,222 @@
+/* Start Global */
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  /*don not count the padding in element width*/
+  }
+  
+  body {
+    background-color: #FFFBF2;
+    margin: 0;
+  }
+  
+  .container {
+    width: 1200px;
+    margin: auto;
+    width: auto;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+  }
+  /* End Global */
+  
+  /* Start Navbar */
+  
+  .navbar {
+    height: 0;
+    color: #FFF;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .navbar .brand {
+    float: left;
+    width: 40%;
+    font-size: 25px;
+    padding: 55px;
+    margin-top: -45px;
+  }
+  
+  .navbar .links {
+    float: left;
+    width: 60%;
+    margin-top: 25px;
+  }
+  
+  .navbar .links li {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 10;
+  }
+  
+  .navbar .links li a {
+    color: #FFF;
+    text-decoration: none;
+  
+  }
+  
+  /* .navbar .links li.active,
+  .navbar .links li:hover{
+    color: #da9f5b;
+  } */
+  
+  .navbar .links li.active a,
+  .navbar .links li a:hover {
+    color: #da9f5b;
+  }
+  
+  /* End Navbar */
+  
+  
+  /* Start Header */
+  
+  .header {
+    background: url(../img/carousel-1.jpg);
+    background-size: cover;
+    position: relative;
+  }
+  
+  .header .overlay {
+    background-color: #2A1E1BAD;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    color: #EEE;
+    z-index: 1;
+  }
+  
+  /* End Header */
+  
+  
+  /* Start About Us */
+  
+  .about {
+      height: 200px;
+  }
+  
+  .a1 {
+    text-align: center;
+    display: block;
+    position: relative;
+  }
+  
+  .a2 {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .a2 .our_story {
+    width: 30%;
+    display: inline-block;
+    margin-left: 30px;
+    padding-top: 0px;
+  }
+  
+  .a2 .img {
+    margin: -130px;
+    margin-left: -130px;
+  display: inline-block;
+  padding-top: 145px;
+  margin-left: -70px;
+  }
+  
+  .img img {
+    width: 400px;
+  }
+  
+  .a2 .our_vision {
+    width: 20%;
+    display: inline-block;
+    margin-left: 95px;
+  }
+  
+  /* End About Us */
+
+  /* Start Footer */
+
+
+.footer {
+    /* position: relative;
+    z-index: 2; */
+    background-color: #251D1B;
+    background-size: cover;
+    color: #C89254;
+    padding: 40px 0;
+    overflow: hidden;
+  }
+  
+  .footer .col {
+    width: 25%;
+    float: left;
+  }
+  
+  .input {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  
+  .input_group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+  }
+  
+  .form_control {
+    padding: 25px;
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+    display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+    border-top-color: rgb(206, 212, 218);
+    border-right-color: rgb(206, 212, 218);
+    border-bottom-color: rgb(206, 212, 218);
+    border-left-color: rgb(206, 212, 218);
+  border-radius: 0;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  /* overflow: visible; */
+  }
+  
+  .input_group_append {
+    margin-left: -1px;
+    display: flex;
+    box-sizing: border-box;
+  }
+  
+  .input_group_append button {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* End Footer */
+  
+  /* Start My Framework */
+  
+  .clearfix {
+    clear: both;   /*clear float*/
+  }
+  
+  
+  /* End My Framework */
